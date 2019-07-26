@@ -1,0 +1,89 @@
+Python3.7环境搭建及opencv安装
+
+1、使用pip直接安装
+pip install opencv-python
+出现pip版本升级的提示，根据提示升级pip
+python -m pip install --upgrade pip
+
+2、再次尝试pip安装OpenCV
+pip install opencv-python
+
+报TimeOut错误，如下。
+[
+Traceback (most recent call last):
+  File "d:\python3.7.3\lib\site-packages\pip\_vendor\urllib3\response.py", line 397, in _error_catcher
+    yield
+  File "d:\python3.7.3\lib\site-packages\pip\_vendor\urllib3\response.py", line 479, in read
+    data = self._fp.read(amt)
+  File "d:\python3.7.3\lib\site-packages\pip\_vendor\cachecontrol\filewrapper.py", line 62, in read
+    data = self.__fp.read(amt)
+  File "d:\python3.7.3\lib\http\client.py", line 447, in read
+    n = self.readinto(b)
+  File "d:\python3.7.3\lib\http\client.py", line 491, in readinto
+    n = self.fp.readinto(b)
+  File "d:\python3.7.3\lib\socket.py", line 589, in readinto
+    return self._sock.recv_into(b)
+  File "d:\python3.7.3\lib\ssl.py", line 1052, in recv_into
+    return self.read(nbytes, buffer)
+  File "d:\python3.7.3\lib\ssl.py", line 911, in read
+    return self._sslobj.read(len, buffer)
+socket.timeout: The read operation timed out
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "d:\python3.7.3\lib\site-packages\pip\_internal\cli\base_command.py", line 188, in main
+    status = self.run(options, args)
+  File "d:\python3.7.3\lib\site-packages\pip\_internal\commands\install.py", line 345, in run
+    resolver.resolve(requirement_set)
+  File "d:\python3.7.3\lib\site-packages\pip\_internal\legacy_resolve.py", line 196, in resolve
+    self._resolve_one(requirement_set, req)
+  File "d:\python3.7.3\lib\site-packages\pip\_internal\legacy_resolve.py", line 359, in _resolve_one
+    abstract_dist = self._get_abstract_dist_for(req_to_install)
+  File "d:\python3.7.3\lib\site-packages\pip\_internal\legacy_resolve.py", line 307, in _get_abstract_dist_for
+    self.require_hashes
+  File "d:\python3.7.3\lib\site-packages\pip\_internal\operations\prepare.py", line 199, in prepare_linked_requirement
+    progress_bar=self.progress_bar
+  File "d:\python3.7.3\lib\site-packages\pip\_internal\download.py", line 1050, in unpack_url
+    progress_bar=progress_bar
+  File "d:\python3.7.3\lib\site-packages\pip\_internal\download.py", line 910, in unpack_http_url
+    progress_bar)
+  File "d:\python3.7.3\lib\site-packages\pip\_internal\download.py", line 1138, in _download_http_url
+    _download_url(resp, link, content_file, hashes, progress_bar)
+  File "d:\python3.7.3\lib\site-packages\pip\_internal\download.py", line 847, in _download_url
+    hashes.check_against_chunks(downloaded_chunks)
+  File "d:\python3.7.3\lib\site-packages\pip\_internal\utils\hashes.py", line 75, in check_against_chunks
+    for chunk in chunks:
+  File "d:\python3.7.3\lib\site-packages\pip\_internal\download.py", line 815, in written_chunks
+    for chunk in chunks:
+  File "d:\python3.7.3\lib\site-packages\pip\_internal\utils\ui.py", line 156, in iter
+    for x in it:
+  File "d:\python3.7.3\lib\site-packages\pip\_internal\download.py", line 804, in resp_read
+    decode_content=False):
+  File "d:\python3.7.3\lib\site-packages\pip\_vendor\urllib3\response.py", line 531, in stream
+    data = self.read(amt=amt, decode_content=decode_content)
+  File "d:\python3.7.3\lib\site-packages\pip\_vendor\urllib3\response.py", line 496, in read
+    raise IncompleteRead(self._fp_bytes_read, self.length_remaining)
+  File "d:\python3.7.3\lib\contextlib.py", line 130, in __exit__
+    self.gen.throw(type, value, traceback)
+  File "d:\python3.7.3\lib\site-packages\pip\_vendor\urllib3\response.py", line 402, in _error_catcher
+    raise ReadTimeoutError(self._pool, None, 'Read timed out.')
+pip._vendor.urllib3.exceptions.ReadTimeoutError: HTTPSConnectionPool(host='files.pythonhosted.org', port=443): Read timed out.
+【解决方法：】
+设置超时时间，安装完成，或者使用国内镜像。
+C:\Users\zhuch>pip --default-timeout=200 install opencv-python
+Collecting opencv-python
+  Downloading https://files.pythonhosted.org/packages/99/ad/864b2f284517249a96190fdf6b21a291d9716115d6886938ccd86afaf821/opencv_python-4.1.0.25-cp37-cp37m-win32.whl (25.7MB)
+     |████████████████████████████████| 25.7MB 102kB/s
+Collecting numpy>=1.14.5 (from opencv-python)
+  Downloading https://files.pythonhosted.org/packages/f9/3f/d75fc983cc420b2acb5fae446b950e2dc9e5395a79fa76859d2528352d2c/numpy-1.17.0-cp37-cp37m-win32.whl (10.8MB)
+     |████████████████████████████████| 10.8MB 149kB/s
+Installing collected packages: numpy, opencv-python
+Successfully installed numpy-1.17.0 opencv-python-4.1.0.25
+
+3.验证
+进入python,
+import cv
+无报错则安装成功。
+
+
